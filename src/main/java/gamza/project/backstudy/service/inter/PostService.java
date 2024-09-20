@@ -1,9 +1,6 @@
 package gamza.project.backstudy.service.inter;
 
-import gamza.project.backstudy.dto.PostListResponseDto;
-import gamza.project.backstudy.dto.PostOneResponseDto;
-import gamza.project.backstudy.dto.PostRequestDto;
-import gamza.project.backstudy.dto.PostResponseDto;
+import gamza.project.backstudy.dto.*;
 
 public interface PostService {
 
@@ -12,6 +9,8 @@ public interface PostService {
     PostListResponseDto allPost();
 
     PostOneResponseDto findOnePost(Long id);
+
+    void updatePost(PostUpdateRequestDto dto, Long id);
 
     void deletePost(Long id);
 

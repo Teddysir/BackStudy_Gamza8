@@ -31,4 +31,10 @@ public class PostEntity extends BaseTime{
     private PostStatus status; // 휴지통에 들어간거 꺼낼 수 있게 하고싶은데 아직 구현안해봄 ㅋ.ㅋ
 
 
+    public void updatePost(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
+
 }

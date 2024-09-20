@@ -1,10 +1,7 @@
 package gamza.project.backstudy.service.impl;
 
 
-import gamza.project.backstudy.dto.PostListResponseDto;
-import gamza.project.backstudy.dto.PostOneResponseDto;
-import gamza.project.backstudy.dto.PostRequestDto;
-import gamza.project.backstudy.dto.PostResponseDto;
+import gamza.project.backstudy.dto.*;
 import gamza.project.backstudy.entity.Enum.PostStatus;
 import gamza.project.backstudy.entity.PostEntity;
 import gamza.project.backstudy.repository.PostRepository;
@@ -77,6 +74,15 @@ public class PostServiceImpl implements PostService {
                 .postStatus(post.getStatus())
                 .username(post.getUserName())
                 .build();
+    }
+
+    @Override
+    public void updatePost(PostUpdateRequestDto dto, Long id) {
+        PostEntity post = postValidation.isValidateUserName(id, dto.getUsername());
+
+        post.updatePost(dto.getTitle(), dto.getContent());
+
+        postRepository.save(post);
     }
 
     @Override
