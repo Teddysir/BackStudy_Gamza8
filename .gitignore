@@ -11,6 +11,7 @@ build/
 ._.DS_Store
 **/.DS_Store
 **/._.DS_Store
+applcation.yml
 .yml
 *.yml
 .apt_generated
