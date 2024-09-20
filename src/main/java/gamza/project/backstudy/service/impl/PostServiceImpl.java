@@ -78,4 +78,10 @@ public class PostServiceImpl implements PostService {
                 .username(post.getUserName())
                 .build();
     }
+
+    @Override
+    public void deletePost(Long id) {
+        PostEntity post = postValidation.isPresentPost(id);
+        postRepository.delete(post);
+    }
 }

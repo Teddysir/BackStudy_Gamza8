@@ -13,4 +13,6 @@ public interface PostService {
 
     PostOneResponseDto findOnePost(Long id);
 
+    void deletePost(Long id);
+
 }

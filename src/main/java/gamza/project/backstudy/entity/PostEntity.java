@@ -28,7 +28,7 @@ public class PostEntity extends BaseTime{
     private String userName; // UserEntity 추가될경우 매핑을 통해 받아 올 예정  임시 유저 저장
 
     @Column(nullable = false)
-    private PostStatus status;
+    private PostStatus status; // 휴지통에 들어간거 꺼낼 수 있게 하고싶은데 아직 구현안해봄 ㅋ.ㅋ
 
 
 }
