@@ -1,6 +1,7 @@
 package gamza.project.backstudy.controller;
 
 import gamza.project.backstudy.dto.PostListResponseDto;
+import gamza.project.backstudy.dto.PostOneResponseDto;
 import gamza.project.backstudy.dto.PostRequestDto;
 import gamza.project.backstudy.dto.PostResponseDto;
 import gamza.project.backstudy.service.inter.PostService;
@@ -22,8 +23,8 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> getOnePost(@PathVariable("id") Long id) {
-        return
+    public PostOneResponseDto getOnePost(@PathVariable("id") Long id) {
+        return postService.findOnePost(id);
     }
 
     @PostMapping("")

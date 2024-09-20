@@ -2,23 +2,25 @@ package gamza.project.backstudy.service.impl;
 
 
 import gamza.project.backstudy.dto.PostListResponseDto;
+import gamza.project.backstudy.dto.PostOneResponseDto;
 import gamza.project.backstudy.dto.PostRequestDto;
 import gamza.project.backstudy.dto.PostResponseDto;
 import gamza.project.backstudy.entity.Enum.PostStatus;
 import gamza.project.backstudy.entity.PostEntity;
 import gamza.project.backstudy.repository.PostRepository;
 import gamza.project.backstudy.service.inter.PostService;
+import gamza.project.backstudy.validation.PostValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
+
+    private final PostValidation postValidation;
 
     private final PostRepository postRepository;
 
@@ -62,5 +64,18 @@ public class PostServiceImpl implements PostService {
                     .posts(postResponseDtos)
                     .build();
         }
+    }
+
+    @Override
+    public PostOneResponseDto findOnePost(Long id) {
+
+        PostEntity post = postValidation.isPresentPost(id);
+
+        return PostOneResponseDto.builder()
+                .title(post.getTitle())
+                .content(post.getContent())
+                .postStatus(post.getStatus())
+                .username(post.getUserName())
+                .build();
     }
 }
