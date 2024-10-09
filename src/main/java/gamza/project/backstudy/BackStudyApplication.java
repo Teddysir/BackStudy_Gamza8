@@ -11,6 +11,7 @@ public class BackStudyApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(BackStudyApplication.class, args);
+
     }
 
 }

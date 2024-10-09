@@ -5,6 +5,7 @@ import gamza.project.backstudy.dto.PostOneResponseDto;
 import gamza.project.backstudy.dto.PostRequestDto;
 import gamza.project.backstudy.dto.PostUpdateRequestDto;
 import gamza.project.backstudy.service.inter.PostService;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/post")
+@Data
 public class PostController {
 
     private final PostService postService;

@@ -8,18 +8,19 @@ import gamza.project.backstudy.repository.PostRepository;
 import gamza.project.backstudy.service.inter.PostService;
 import gamza.project.backstudy.validation.PostValidation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
 
-    private final PostValidation postValidation;
+    @Autowired
+    private PostValidation postValidation;
 
-    private final PostRepository postRepository;
+    @Autowired
+    private PostRepository postRepository;
 
     @Override
     public void createPost(PostRequestDto dto) {
@@ -44,7 +45,7 @@ public class PostServiceImpl implements PostService {
                     .posts(Collections.emptyList())
                     .build();
         } else {
-            // PostEntity 리스트를 PostResponseDto 리스트로 변환
+
             List<PostResponseDto> postResponseDtos = allPost.stream()
                     .map(post -> PostResponseDto.builder()
                             .id(post.getId())
@@ -55,7 +56,6 @@ public class PostServiceImpl implements PostService {
                             .build())
                     .toList();
 
-            // PostListResponseDto 생성 후 반환
             return PostListResponseDto.builder()
                     .size(postResponseDtos.size())
                     .posts(postResponseDtos)

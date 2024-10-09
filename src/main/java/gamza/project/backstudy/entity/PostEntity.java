@@ -2,10 +2,7 @@ package gamza.project.backstudy.entity;
 
 import gamza.project.backstudy.entity.Enum.PostStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Getter
@@ -35,6 +32,10 @@ public class PostEntity extends BaseTime{
         this.title = title;
         this.content = content;
     }
+
+
+
+
 
 
 }
