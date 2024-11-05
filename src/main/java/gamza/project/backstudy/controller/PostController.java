@@ -1,10 +1,11 @@
 package gamza.project.backstudy.controller;
 
-import gamza.project.backstudy.dto.PostListResponseDto;
-import gamza.project.backstudy.dto.PostOneResponseDto;
-import gamza.project.backstudy.dto.PostRequestDto;
-import gamza.project.backstudy.dto.PostUpdateRequestDto;
+import gamza.project.backstudy.dto.post.PostListResponseDto;
+import gamza.project.backstudy.dto.post.PostOneResponseDto;
+import gamza.project.backstudy.dto.post.PostRequestDto;
+import gamza.project.backstudy.dto.post.PostUpdateRequestDto;
 import gamza.project.backstudy.service.inter.PostService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,7 @@ public class PostController {
     }
 
     @PostMapping("")
-    public ResponseEntity<String> createPost(@RequestBody PostRequestDto dto) {
+    public ResponseEntity<String> createPost(@RequestBody PostRequestDto dto, HttpServletRequest request) {
         postService.createPost(dto);
         return ResponseEntity.status(HttpStatus.OK).body("게시물이 생성되었습니다.");
     }
@@ -46,4 +47,5 @@ public class PostController {
         postService.deletePost(id);
         return ResponseEntity.status(HttpStatus.OK).body("게시물이 삭제되었습니다.");
     }
+
 }

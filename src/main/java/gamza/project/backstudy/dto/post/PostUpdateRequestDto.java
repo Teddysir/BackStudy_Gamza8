@@ -1,4 +1,4 @@
-package gamza.project.backstudy.dto;
+package gamza.project.backstudy.dto.post;
 
 import lombok.Builder;
 import lombok.Getter;

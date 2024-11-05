@@ -1,4 +1,4 @@
-package gamza.project.backstudy.dto;
+package gamza.project.backstudy.dto.post;
 
 import gamza.project.backstudy.entity.Enum.PostStatus;
 import lombok.Builder;

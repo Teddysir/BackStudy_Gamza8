@@ -1,6 +1,9 @@
 package gamza.project.backstudy.service.inter;
 
-import gamza.project.backstudy.dto.*;
+import gamza.project.backstudy.dto.post.PostListResponseDto;
+import gamza.project.backstudy.dto.post.PostOneResponseDto;
+import gamza.project.backstudy.dto.post.PostRequestDto;
+import gamza.project.backstudy.dto.post.PostUpdateRequestDto;
 
 public interface PostService {
 

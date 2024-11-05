@@ -1,13 +1,12 @@
 package gamza.project.backstudy.service.impl;
 
 
-import gamza.project.backstudy.dto.*;
+import gamza.project.backstudy.dto.post.*;
 import gamza.project.backstudy.entity.Enum.PostStatus;
 import gamza.project.backstudy.entity.PostEntity;
 import gamza.project.backstudy.repository.PostRepository;
 import gamza.project.backstudy.service.inter.PostService;
 import gamza.project.backstudy.validation.PostValidation;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
