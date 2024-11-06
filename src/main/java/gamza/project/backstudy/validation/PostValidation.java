@@ -31,10 +31,6 @@ public class PostValidation {
             throw new NoSuchElementException("해당 게시물은 존재하지 않습니다."); // 나중에 커스텀 에러가 있다면 그 커스텀 에러를 던져도될듯
         }
 
-        if(!post.get().getUserName().equals(username)){
-            throw new NoSuchElementException("해당 게시물 수정 권한이 없습니다.");
-        }
-
         return post.get();
 
     }

@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void signUp(UserSignUpRequestDto dto, HttpServletResponse response) {
         if(userRepository.existsByEmail(dto.getEmail())) {
-            throw new UnAuthorizedException("이메일 중복이다 (초복, 중복, 말복 아님 ㅋㅋ) 똥먹으삼 by 다혜", ErrorCode.NOT_ALLOW_ACCESS_EXCEPTION);
+            throw new UnAuthorizedException("ErrorCode : 00x1", ErrorCode.NOT_ALLOW_ACCESS_EXCEPTION);
         }
 
         dto.setPassword(passwordEncoder.encode(dto.getPassword()));
@@ -44,13 +44,13 @@ public class UserServiceImpl implements UserService {
     public void login(UserLoginRequestDto dto, HttpServletResponse response) {
 
         if(!userRepository.existsByEmail(dto.getEmail())) {
-            throw new UnAuthorizedException("존재하는 이메일 없지롱 똥쟁아", ErrorCode.ACCESS_DENIED_EXCEPTION);
+            throw new UnAuthorizedException("ErrorCode : 00x2", ErrorCode.ACCESS_DENIED_EXCEPTION);
         }
 
         UserEntity user = userRepository.findByEmail(dto.getEmail()).orElseThrow();
 
         if(!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
-            throw new UnAuthorizedException("응 비번 틀렸어~", ErrorCode.ACCESS_DENIED_EXCEPTION);
+            throw new UnAuthorizedException("ErrorCode : 00x3", ErrorCode.ACCESS_DENIED_EXCEPTION);
         }
 
         setTokenInHeader(dto.getEmail(), response);

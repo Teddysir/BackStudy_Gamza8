@@ -21,12 +21,12 @@ public class PostEntity extends BaseTime{
     @Column(nullable = false)
     private String content;
 
-    @Column(nullable = false)
-    private String userName; // UserEntity 추가될경우 매핑을 통해 받아 올 예정  임시 유저 저장
+    @ManyToOne()
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user;
 
     @Column(nullable = false)
-    private PostStatus status; // 휴지통에 들어간거 꺼낼 수 있게 하고싶은데 아직 구현안해봄 ㅋ.ㅋ
-
+    private PostStatus status;
 
     public void updatePost(String title, String content) {
         this.title = title;

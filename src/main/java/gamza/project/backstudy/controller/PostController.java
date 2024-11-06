@@ -8,6 +8,7 @@ import gamza.project.backstudy.service.inter.PostService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,8 +32,8 @@ public class PostController {
     }
 
     @PostMapping("")
-    public ResponseEntity<String> createPost(@RequestBody PostRequestDto dto, HttpServletRequest request) {
-        postService.createPost(dto);
+    public ResponseEntity<String> createPost(@RequestBody PostRequestDto dto, HttpServletRequest request) { // HttpServletRequest 사용
+        postService.createPost(dto, request);
         return ResponseEntity.status(HttpStatus.OK).body("게시물이 생성되었습니다.");
     }
 
@@ -43,8 +44,8 @@ public class PostController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deletePost(@PathVariable("id") Long id) {
-        postService.deletePost(id);
+    public ResponseEntity<String> deletePost(@PathVariable("id") Long id, @RequestHeader HttpHeaders headers) { // @RequestHeader 사용
+        postService.deletePost(id, headers);
         return ResponseEntity.status(HttpStatus.OK).body("게시물이 삭제되었습니다.");
     }
 

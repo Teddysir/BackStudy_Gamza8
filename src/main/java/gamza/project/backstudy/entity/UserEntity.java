@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.util.List;
 
+
 @Entity
 @Getter
 @Builder
@@ -27,5 +28,8 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
     private UserRole userRole;
+
+    @OneToMany(mappedBy = "user")
+    private List<PostEntity> post;
 
 }

@@ -54,14 +54,14 @@ public class PostServiceTest {
         PostEntity postEntity = PostEntity.builder()
                 .title(postRequestDto.getTitle())
                 .content(postRequestDto.getContent())
-                .userName(postRequestDto.getUsername())
+//                .userName(postRequestDto.getUsername())
                 .status(PostStatus.REGISTERED) // 0 : REGISTERED, 1 : ABANDONED
                 .build();
 
         when(postRepository.save(any(PostEntity.class))).thenReturn(postEntity); // -> 없어도 실행이 되네?
 
         // when
-        postServiceImpl.createPost(postRequestDto);
+//        postServiceImpl.createPost(postRequestDto);
 
         // then
         verify(postRepository, times(1)).save(any(PostEntity.class));

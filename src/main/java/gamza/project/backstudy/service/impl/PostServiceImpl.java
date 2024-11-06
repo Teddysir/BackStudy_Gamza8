@@ -1,13 +1,20 @@
 package gamza.project.backstudy.service.impl;
 
 
+import gamza.project.backstudy.Error.ErrorCode;
+import gamza.project.backstudy.Error.requestError.BadRequestException;
 import gamza.project.backstudy.dto.post.*;
 import gamza.project.backstudy.entity.Enum.PostStatus;
 import gamza.project.backstudy.entity.PostEntity;
+import gamza.project.backstudy.entity.UserEntity;
 import gamza.project.backstudy.repository.PostRepository;
+import gamza.project.backstudy.repository.UserRepository;
 import gamza.project.backstudy.service.inter.PostService;
+import gamza.project.backstudy.service.jwt.JwtTokenProvider;
 import gamza.project.backstudy.validation.PostValidation;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -21,13 +28,24 @@ public class PostServiceImpl implements PostService {
     @Autowired
     private PostRepository postRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+
     @Override
-    public void createPost(PostRequestDto dto) {
+    public void createPost(PostRequestDto dto, HttpServletRequest request) {
+
+        String token = jwtTokenProvider.resolveAccessToken(request);
+        jwtTokenProvider.validateAccessToken(token);
+        Long userId = jwtTokenProvider.extractId(token);
+        Optional<UserEntity> user = userRepository.findById(userId);
 
         PostEntity post = PostEntity.builder()
                 .title(dto.getTitle())
                 .content(dto.getContent())
-                .userName(dto.getUsername())
+                .user(user.get())
                 .status(PostStatus.REGISTERED) // 0 : REGISTERED, 1 : ABANDONED
                 .build();
 
@@ -50,7 +68,6 @@ public class PostServiceImpl implements PostService {
                             .id(post.getId())
                             .title(post.getTitle())
                             .content(post.getContent())
-                            .username(post.getUserName())
                             .postStatus(post.getStatus())
                             .build())
                     .toList();
@@ -71,7 +88,6 @@ public class PostServiceImpl implements PostService {
                 .title(post.getTitle())
                 .content(post.getContent())
                 .postStatus(post.getStatus())
-                .username(post.getUserName())
                 .build();
     }
 
@@ -85,8 +101,29 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void deletePost(Long id) {
+    public void deletePost(Long id, HttpHeaders headers) {
+
+        String token = headers.get("Authorization").toString().substring(7).trim();
+        System.out.println("---------------------------------");
+        System.out.println(token);
+
+        if(token.isEmpty()) {
+            throw new BadRequestException("ErrorCode : 00x4", ErrorCode.NOT_ALLOW_ACCESS_EXCEPTION);
+        }
+
+        jwtTokenProvider.validateAccessToken(token);
+        Long userId = jwtTokenProvider.extractId(token);
+
+        Optional<UserEntity> user = userRepository.findById(userId);
+        if (user.isEmpty()) {
+            throw new BadRequestException("ErrorCode : 00x5", ErrorCode.NOT_ALLOW_ACCESS_EXCEPTION);
+        }
+
         PostEntity post = postValidation.isPresentPost(id);
+        if (!post.getUser().getId().equals(userId)) {
+            throw new BadRequestException("ErrorCode : 00x6", ErrorCode.NOT_ALLOW_ACCESS_EXCEPTION);
+        }
+
         postRepository.delete(post);
     }
 }
